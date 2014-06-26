@@ -11,7 +11,7 @@ class BasePlugin(object):
         pass
 
     @abstractmethod
-    def after(self);
+    def after(self):
         pass
 
     @abstractmethod
@@ -21,13 +21,19 @@ class BasePlugin(object):
 
 class TestPlugin(BasePlugin):
     def before(self):
+        super(TestPlugin, self).before()
         print('before')
 
     def after(self):
+        super(TestPlugin, self).after()
         print('after')
 
     def run(self):
+        super(TestPlugin, self).run()
         print('run')
+
+
+BasePlugin.register(TestPlugin)
 
 
 

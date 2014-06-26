@@ -11,19 +11,19 @@ option:
 
 from docopt import docopt
 import imp, os, sys
-sys.path.append('./plugins')
+#sys.path.append('./plugins')
 
 
 class Plugin(object):
-    plugin = None
+    module = None
 
     def load(self, module_name):
         try:
-            file, pathname, description = imp.find_module(module_name)
+            (file, pathname, description) = imp.find_module(module_name, ['plugins'])
         except ImportError:
             print "Failed to find module"
         try:
-            self.plugin = imp.load_module(module_name, file, pathname, description)
+            self.module = imp.load_module(module_name, file, pathname, description)
         except ImportError:
             print "Failed to load module"
 
@@ -33,10 +33,8 @@ if __name__ == '__main__':
 
     plugin = Plugin()
     plugin.load(args['<command>'])
-    p = plugin.plugin.TestPlugin()
-    print(p.run())
+    p = plugin.module.TestPlugin()
+    p.run()
 
-    for param in args['<params>']:
-        print param
 
 
