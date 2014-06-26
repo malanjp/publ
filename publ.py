@@ -10,7 +10,8 @@ option:
 """
 
 from docopt import docopt
-import imp, os
+import imp, os, sys
+sys.path.append('./plugins')
 
 
 class Plugin(object):
@@ -18,7 +19,7 @@ class Plugin(object):
 
     def load(self, module_name):
         try:
-            file, pathname, description = imp.find_module(module_name, './plugins')
+            file, pathname, description = imp.find_module(module_name)
         except ImportError:
             print "Failed to find module"
         try:
@@ -32,6 +33,8 @@ if __name__ == '__main__':
 
     plugin = Plugin()
     plugin.load(args['<command>'])
+    p = plugin.plugin.TestPlugin()
+    print(p.run())
 
     for param in args['<params>']:
         print param
