@@ -33,8 +33,10 @@ if __name__ == '__main__':
 
     plugin = Plugin()
     plugin.load(args['<command>'])
-    p = plugin.module.TestPlugin()
+    p = plugin.module.TestPlugin(args['<params>'])
+    p.before()
     p.run()
+    p.after()
 
 
 

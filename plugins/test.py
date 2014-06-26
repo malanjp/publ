@@ -6,6 +6,10 @@ from abc import ABCMeta, abstractmethod
 class BasePlugin(object):
     __metaclass__ = ABCMeta
 
+    def __init__(self, params):
+        self.params = params
+        pass
+
     @abstractmethod
     def before(self):
         pass
@@ -30,6 +34,7 @@ class TestPlugin(BasePlugin):
 
     def run(self):
         super(TestPlugin, self).run()
+        print(self.params)
         print('run')
 
 
